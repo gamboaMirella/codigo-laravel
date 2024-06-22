@@ -3,22 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Servicio;
 
-class Servicios2Controller extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $lista_de_servicios=[
-            ['titulo'=>'Servicio 1'],
-            ['titulo'=>'Servicio 2'],
-            ['titulo'=>'Servicio 3'],
-            ['titulo'=>'Servicio 4'],
-            ['titulo'=>'Servicio 5']
-        ];
-        return view('servicios', ['servicios'=>$lista_de_servicios]);
+class Servicios2Controller extends Controller {
+    public function index() {
+        $servicios = Servicio::all();
+        return view('servicios', compact('servicios'));
     }
 
     /**

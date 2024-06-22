@@ -7,7 +7,7 @@
     <form method="GET"> <!---->
         <div>
             <label for="nombres">Nombres: </label>
-            <input type="text" id="nombre" name="names" placeholder="Ingrese sus nombres" required>
+            <input type="text" id="nombres" name="names" placeholder="Ingrese sus nombres" required>
         </div>
         
         <div>
