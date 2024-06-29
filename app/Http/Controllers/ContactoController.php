@@ -39,7 +39,7 @@ class ContactoController extends Controller
         $contacto->save();
 
         // Envía un correo con los datos del formulario
-        Mail::to('destinatario@example.com')->send(new MensajeRecibido($contacto));
+        Mail::to('mgamboav@unitru.edu.pe')->send(new MensajeRecibido($contacto));
 
         // Redirige a la página de contacto con un mensaje de éxito
         return redirect()->route('contacto.create')->with('success', 'Mensaje enviado correctamente');
