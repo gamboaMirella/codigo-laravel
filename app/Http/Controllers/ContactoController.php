@@ -3,45 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Contacto; // Importa el modelo Contacto
+use App\Mail\MensajeRecibido;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\MensajeRecibido; // Asegúrate de tener esta clase de Mailable
 
 class ContactoController extends Controller
 {
-    /**
-     * Muestra el formulario de contacto.
-     */
-    public function create()
-    {
-        return view('contacto.create'); // Asegúrate de tener esta vista
-    }
-
-    /**
-     * Procesa y guarda los datos del formulario de contacto.
-     */
     public function store(Request $request)
     {
-        // Valida los datos recibidos en el formulario
-        $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'correo' => 'required|string|email|max:255',
-            'asunto' => 'required|string|max:255',
-            'mensaje' => 'required|string',
+        // Validar la solicitud con reglas y mensajes personalizados
+        $mensaje = $request->validate([
+            'nombre' => 'required',
+            'email' => 'required|email',
+            'asunto' => 'required',
+            'mensaje' => 'required|min:3',
+        ], [
+            'nombre.required' => 'Ingresa tu nombre',
+            'email.required' => 'Ingresa tu correo',
+            'email.email' => 'El correo no es válido',
+            'asunto.required' => 'Ingresa un asunto',
+            'mensaje.required' => 'Ingresa el mensaje',
+            'mensaje.min' => 'El mensaje debe tener al menos 3 caracteres',
         ]);
 
-        // Guarda los datos en la base de datos
-        $contacto = new Contacto();
-        $contacto->nombre = $validatedData['nombre'];
-        $contacto->correo = $validatedData['correo'];
-        $contacto->asunto = $validatedData['asunto'];
-        $contacto->mensaje = $validatedData['mensaje'];
-        $contacto->save();
+        // Enviar el correo electrónico
+        Mail::to('mgamboav@unitru.edu.pe')->send(new MensajeRecibido(
+            $mensaje['nombre'],
+            $mensaje['email'],
+            $mensaje['asunto'],
+            $mensaje['mensaje']
+        ));
 
-        // Envía un correo con los datos del formulario
-        Mail::to('mgamboav@unitru.edu.pe')->send(new MensajeRecibido($contacto));
-
-        // Redirige a la página de contacto con un mensaje de éxito
-        return redirect()->route('contacto.create')->with('success', 'Mensaje enviado correctamente');
+        // Aquí puedes manejar la lógica después de la validación exitosa
+        return back()->with('success', 'Datos validados y correo enviado correctamente');
     }
 }

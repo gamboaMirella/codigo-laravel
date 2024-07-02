@@ -25,18 +25,30 @@
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" value="{{ old('nombre') }}" required>
+            @error('nombre')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div>
             <label for="correo">Correo Electrónico:</label>
             <input type="email" id="correo" name="correo" value="{{ old('correo') }}" required>
+            @error('correo')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div>
             <label for="asunto">Asunto:</label>
             <input type="text" id="asunto" name="asunto" value="{{ old('asunto') }}" required>
+            @error('asunto')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div>
             <label for="mensaje">Mensaje:</label>
             <textarea id="mensaje" name="mensaje" required>{{ old('mensaje') }}</textarea>
+            @error('mensaje')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div>
             <button type="submit">Enviar</button>
