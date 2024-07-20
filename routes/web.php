@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactoController;
-use App\Http\Controllers\Servicios2Controller;
+use App\Http\Controllers\ServiciosController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,4 +14,4 @@ Route::get('nosotros', function(){
     return view('nosotros');
 })->name('about');
 
-Route::resource('servicios',Servicios2Controller::class);
+Route::resource('servicios',ServiciosController::class);

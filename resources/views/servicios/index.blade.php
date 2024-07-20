@@ -10,13 +10,15 @@
         </div>
     @endif
 
+    <a href="{{ route('servicios.create') }}">Crear nuevo servicio</a>
+
     <table>
         @forelse ($servicios as $servicio)
             <tr>
                 <td>{{ $servicio->titulo }}</td>
                 <td>{{ $servicio->descripcion }}</td>
-                <td><a href="{{ route('servicios.show', $servicio->id) }}">Ver</a></td>
-                <td><a href="{{ route('servicios.edit', $servicio->id) }}">Editar</a></td>
+                <td><a href="{{ route('servicios.show', $servicio->id) }}"><button>Ver</button></a></td>
+                <td><a href="{{ route('servicios.edit', $servicio->id) }}"><button>Editar</button></a></td>
                 <td>
                     <form action="{{ route('servicios.destroy', $servicio->id) }}" method="POST">
                         @csrf
